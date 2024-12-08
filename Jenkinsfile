@@ -28,6 +28,7 @@ pipeline {
             steps {
                 sh """
                 npm install
+                ls -al
                 """
             }
         }
