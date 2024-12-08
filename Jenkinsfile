@@ -24,7 +24,7 @@ pipeline {
                 }
             }
         }
-        stage('NPM Install') { 
+        stage(' Install Dependencies') { 
             steps {
                 sh """
                 npm install
@@ -33,7 +33,9 @@ pipeline {
         }
         stage('Deploy') { 
             steps {
-                echo "hello" 
+                sh """
+                ls -al
+                """
             }
         }
     }
