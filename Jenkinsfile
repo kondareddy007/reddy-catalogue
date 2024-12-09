@@ -20,7 +20,7 @@ pipeline {
                     def packageJson = readJSON file: 'package.json'
                     packageVersion = packageJson.version
                     echo "application version: $packageVersion"
-                    echo "application Details: $packageJson"
+                    
                 }
             }
         }
@@ -34,9 +34,7 @@ pipeline {
         }
         stage('Deploy') { 
             steps {
-                sh """
-                ls -al
-                """
+                \
             }
         }
     }
