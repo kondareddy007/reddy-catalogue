@@ -28,13 +28,14 @@ pipeline {
             steps {
                 sh """
                 npm install
-                ls -al
                 """
             }
         }
-        stage('Deploy') { 
+        stage('Build') { 
             steps {
-                \
+            sh """
+            ls -al
+            """
             }
         }
     }
