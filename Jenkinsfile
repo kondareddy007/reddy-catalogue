@@ -67,6 +67,8 @@ pipeline {
                 //         string(name: 'version', "${packageVersion}")
                 //         string(name: 'environment', value: 'dev')
                 // ]
+
+                echo "This is deployment step"
             }
         }
     }
