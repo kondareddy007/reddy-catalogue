@@ -51,7 +51,7 @@ pipeline {
         groupId: 'com.roboshop',
         version: "${packageVersion}",
         repository: 'catalogue',
-        credentialsId: 'nexus-auth',
+        credentialsId: 'nexus_auth',
         artifacts: [
             [artifactId: 'catalogue',
              classifier: '',
@@ -59,6 +59,14 @@ pipeline {
              type: 'zip']
         ]
      )
+            }
+        }
+        stage('Deploy') {
+            steps {
+                    build job: 'catalogue-deploy', wait: true, parameters[
+                        string(name: 'version', "${packageVersion}")
+                        string(name: 'environment', value: 'dev')
+                ]
             }
         }
     }
@@ -93,3 +101,6 @@ pipeline {
 //Google--> Delete directory in pipeline
  // deleteDir() -->add this in post() section in pipeline
  //plugin--> Nexus artifact uploader
+ //nslookup nexus.reddy1229.onlone --> to test the DNS name is working or not
+ //google --> how to call another job in jenkins pipeline with parameters
+ //sol: build job
