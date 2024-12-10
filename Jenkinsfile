@@ -6,6 +6,7 @@ pipeline {
     } 
     environment {
         packageVersion = ''
+        nexusURL = '172.31.93.24:8081'
     }
     options {
         timeout( time: 1, unit: 'HOURS')
@@ -40,6 +41,26 @@ pipeline {
             """
             }
         }
+        stage('Publish artifact')
+        {
+            steps {
+        nexusArtifactUploader(
+        nexusVersion: 'nexus3',
+        protocol: 'http',
+        nexusUrl: "${nexusURL}",
+        groupId: 'com.roboshop',
+        version: "${packageVersion}",
+        repository: 'catalogue',
+        credentialsId: 'nexus-auth',
+        artifacts: [
+            [artifactId: 'catalogue',
+             classifier: '',
+             file: 'catalogue.zip',
+             type: 'zip']
+        ]
+     )
+            }
+        }
     }
 }
 
@@ -58,3 +79,4 @@ pipeline {
 //zip -q -r catalogue.zip ./* -x ".git" -x "*.zip"
 //Google--> Delete directory in pipeline
  // deleteDir() -->add this in post() section in pipeline
+ //plugin--> Nexus artifact uploader
