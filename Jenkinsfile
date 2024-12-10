@@ -55,11 +55,24 @@ pipeline {
         artifacts: [
             [artifactId: 'catalogue',
              classifier: '',
-             file: 'catalogue.zip',
+             file: 'catalogue.zip', 
              type: 'zip']
         ]
      )
             }
+        }
+    }
+
+    post {
+        always {
+            echo 'it will always say hello again'
+            deleteDir()
+        }
+        failure {
+            echo " it will throw error message when build is failed"
+        }
+        success {
+            echo "it will display when build when build is success"
         }
     }
 }
