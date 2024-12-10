@@ -61,16 +61,16 @@ pipeline {
      )
             }
         }
-        stage('Deploy') {
-            steps {
-                    build job: 'catalogue-deploy', wait: true, parameters[
-                        string(name: 'version', "${packageVersion}")
-                        string(name: 'environment', value: 'dev')
-                ]
+        // stage('Deploy') {
+        //     steps {
+        //             build job: 'catalogue-deploy', wait: true, parameters[
+        //                 string(name: 'version', "${packageVersion}")
+        //                 string(name: 'environment', value: 'dev')
+        //         ]
 
-                echo "This is deployment step"
-            }
-        }
+        //         echo "This is deployment step"
+        //     }
+        // }
     }
 
     post {
