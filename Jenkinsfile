@@ -41,36 +41,36 @@ pipeline {
             """
             }
         }
-    //     stage('Publish artifact')
-    //     {
-    //         steps {
-    //     nexusArtifactUploader(
-    //     nexusVersion: 'nexus3',
-    //     protocol: 'http',
-    //     nexusUrl: "${nexusURL}",
-    //     groupId: 'com.roboshop',
-    //     version: "${packageVersion}",
-    //     repository: 'catalogue',
-    //     credentialsId: 'nexus_auth',
-    //     artifacts: [
-    //         [artifactId: 'catalogue',
-    //          classifier: '',
-    //          file: 'catalogue.zip', 
-    //          type: 'zip']
-    //     ]
-    //  )
-    //         }
-    //     }
-    //     stage('Deploy') {
-    //         steps {
-    //                 build job: 'catalogue-deploy', wait: true, parameters[
-    //                     string(name: 'version', "${packageVersion}")
-    //                     string(name: 'environment', value: 'dev')
-    //             ]
+        stage('Publish artifact')
+        {
+            steps {
+        nexusArtifactUploader(
+        nexusVersion: 'nexus3',
+        protocol: 'http',
+        nexusUrl: "${nexusURL}",
+        groupId: 'com.roboshop',
+        version: "${packageVersion}",
+        repository: 'catalogue',
+        credentialsId: 'nexus_auth',
+        artifacts: [
+            [artifactId: 'catalogue',
+             classifier: '',
+             file: 'catalogue.zip', 
+             type: 'zip']
+        ]
+     )
+            }
+        }
+        stage('Deploy') {
+            steps {
+                    build job: 'catalogue-deploy', wait: true, parameters[
+                        string(name: 'version', "${packageVersion}")
+                        string(name: 'environment', value: 'dev')
+                ]
 
-    //             echo "This is deployment step"
-    //         }
-    //     }
+                echo "This is deployment step"
+            }
+        }
     }
 
     post {
