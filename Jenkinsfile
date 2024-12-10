@@ -63,11 +63,10 @@ pipeline {
         }
         stage('Deploy') {
             steps {
-                
-                    build job: 'catalogue-deploy', wait: true, parameters[
+                    def params = [
                         string(name: 'version', "${packageVersion}")
-                        // string(name: 'environment', value: 'dev')
-                ]
+                    ]
+                    build job: 'catalogue-deploy', wait: true, parameters: params
             }
         }
     }
@@ -99,6 +98,7 @@ pipeline {
 // zip -r catalogue.zip ./* -x ".git" -x "*.zip" --> x means exclude files 
 //Google --> silent zip in pipeline
 //zip -q -r catalogue.zip ./* -x ".git" -x "*.zip"
+//plugin--> download utility plugin
 //Google--> Delete directory in pipeline
  // deleteDir() -->add this in post() section in pipeline
  //plugin--> Nexus artifact uploader
