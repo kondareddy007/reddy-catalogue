@@ -108,3 +108,9 @@ pipeline {
  //nslookup nexus.reddy1229.onlone --> to test the DNS name is working or not
  //google --> how to call another job in jenkins pipeline with parameters
  //sol: build job
+
+ //Plugins:-
+ //1)cretae credential agent and nexus url
+ //2)create node for AGENT
+ //3)download plugind Nexus artifact uploader, ansiColor, utility, pipeline stage.
+ 
