@@ -68,8 +68,13 @@ pipeline {
             """
             }
         }
-        stage('Publish artifact')
+        stage('Publish_artifact')
         {
+            when {
+                expression {
+                    params.Publish_artifact = true
+                }
+            }
             steps {
         nexusArtifactUploader(
         nexusVersion: 'nexus3',
