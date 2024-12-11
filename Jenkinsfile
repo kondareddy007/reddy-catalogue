@@ -72,7 +72,7 @@ pipeline {
         {
             when {
                 expression {
-                    params.Publish_artifact = true
+                    params.Publish_artifact == 'true'
                 }
             }
             steps {
@@ -96,7 +96,7 @@ pipeline {
         stage('Deploy') {
             when {
                 expression {
-                    params.Deploy = true
+                    params.Deploy == 'true'
                 }
             }
             steps {
