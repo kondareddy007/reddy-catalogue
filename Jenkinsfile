@@ -14,6 +14,21 @@ pipeline {
         ansiColor('xterm')
     }
 
+    parameters {
+        // string(name: 'PERSON', defaultValue: 'Mr Jenkins', description: 'Who should I say hello to?')
+
+        // text(name: 'BIOGRAPHY', defaultValue: '', description: 'Enter some information about the person')
+
+        // booleanParam(name: 'TOGGLE', defaultValue: true, description: 'Toggle this value')
+
+        // choice(name: 'CHOICE', choices: ['One', 'Two', 'Three'], description: 'Pick something')
+
+        // password(name: 'PASSWORD', defaultValue: 'SECRET', description: 'Enter a password')
+        booleanParam(name: 'Deploy', defaultValue: false, description: 'Toggle this value')
+        booleanParam(name: 'Publish_artifact', defaultValue: false, description: 'Toggle this value')
+        
+    }
+
     stages {
         stage('Get the version') { 
             steps {
@@ -32,6 +47,18 @@ pipeline {
                 """
             }
         }
+        stage('Unit test') { 
+            steps {
+                echo "unit test will run here"
+            }
+        }
+        stage('Sonar Scan') { 
+            steps {
+                sh """
+                  sonar-scanner
+                """
+            }
+        }
         stage('Build') { 
             steps {
             sh """
@@ -41,8 +68,13 @@ pipeline {
             """
             }
         }
-        stage('Publish artifact')
+        stage('Publish_artifact')
         {
+            when {
+                expression {
+                    params.Publish_artifact = true
+                }
+            }
             steps {
         nexusArtifactUploader(
         nexusVersion: 'nexus3',
@@ -62,6 +94,11 @@ pipeline {
             }
         }
         stage('Deploy') {
+            when {
+                expression {
+                    params.Deploy = true
+                }
+            }
             steps {
                 script {
                     def params = [
